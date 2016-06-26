@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../public/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/stylesheets/style.css">
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script src="../public/javascripts/jquery-3.0.0.min.js"></script>
+    <script src="../public/javascripts/bootstrap.min.js"></script>
+    <script src="../public/javascripts/showTimetables.js"></script>
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <title>DIT Timetable</title>
+  </head>
+
+  <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+
+        <div class="navbar-header">
+          <a class="navbar-brand"><span class="glyphicon glyphicon-cog"></span></a>
+        </div>
+
+        <form class="navbar-form navbar-right">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">
+              <span class="glyphicon glyphicon-search"></span>
+            </span>
+            <input type="text" class="form-control" placeholder="Filter by Courses Code">
+          </div>
+        </form>
+
+      </div>
+    </nav>
+
+    <!-- list -->
+    <div class="container">
+      <ul class="list-group" id="timetables">
+      </ul>
+    </div>
+
+  </body>
+</html>
