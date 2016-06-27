@@ -1,6 +1,9 @@
 var http = require('http');
+var fs = require('fs');
 
-function getTimetablesJSON(response) {
+function getTimetablesFromInternet() {
+  //var timetables = document.getElementById('timetables');
+
   var options = {
     host: '104.131.54.124',
     path: '/timetables/courses.php'
@@ -14,17 +17,22 @@ function getTimetablesJSON(response) {
     });
 
     res.on('end', function() {
-      //parseTimetablesJSON(responseText);
       json = JSON.parse(responseJSON);
 
-      for(var i = 0; i < json.objects.length; i++) {
-          console.log(json.objects[i]);
-      }
+      /*for(var i = 0; i < json.objects.length; i++) {
+          timetables.innerHTML += "<li class=\"list-group-item\">" + json.objects[i].courseName + "</li>";
+      }*/
+
+      //write new json into cache file
+      fs.writeFile('cache.json', responseJSON, function(err) {
+        if(err) {
+          console.log('write fail');
+        } else {
+          console.log('write successful');
+        }
+      });
     });
-  })
+  });
 }
 
-
-var response = ""
-getTimetablesJSON(response);
-console.log(response);
+getTimetablesFromInternet();
