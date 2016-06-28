@@ -1,6 +1,9 @@
 var http = require('http');
 var fs = require('fs');
 
+//global variable to store all of timetables information
+var allTimetables = [];
+
 window.onload = function() {
   //check if the cache file
   fs.exists('cache/cache.json', function (exists) {
@@ -32,20 +35,29 @@ function getTimetablesFromLocalFile() {
       //clear timetables
       clearTimetables();
 
-      //show timetables
+      // show timetables
       //===============
-      //slow approach to insert html
-      //for(var i = 0; i < json.objects.length; i++) {
+      // slow approach to insert html
+      // for(var i = 0; i < json.objects.length; i++) {
       //    timetables.innerHTML += "<li class=\"list-group-item\">" + json.objects[i].courseName + "</li>";
       //}
       //===============
       // faster approach to insert html
       var tempHTML = [];
 
+      // clear all of timetables first
+      allTimetables = [];
+
       for(var i = 0; i < json.objects.length; i++) {
-        tempHTML.push("<li class=\"list-group-item\">" + json.objects[i].courseName + "</li>");
+        //temp variable to store each course name
+        var tempItem = json.objects[i].courseName;
+        // push each of course name into global variable for storage
+        allTimetables.push(tempItem);
+        // push to tempate variable for displaying
+        tempHTML.push("<li class=\"list-group-item\">" + tempItem + "</li>");
       }
 
+      // write all of content inside a target tag
       timetables.innerHTML = tempHTML.join('\n');
     }
   });
@@ -82,14 +94,24 @@ function getTimetablesFromInternet() {
       //    timetables.innerHTML += "<li class=\"list-group-item\">" + json.objects[i].courseName + "</li>";
       //}
 
-      //fast approach to display all of timetables
+      // faster approach to insert html
       var tempHTML = [];
 
+      // clear all of timetables first
+      allTimetables = [];
+
       for(var i = 0; i < json.objects.length; i++) {
-        tempHTML.push("<li class=\"list-group-item\">" + json.objects[i].courseName + "</li>");
+        //temp variable to store each course name
+        var tempItem = json.objects[i].courseName;
+        // push each of course name into global variable for storage
+        allTimetables.push(tempItem);
+        // push to tempate variable for displaying
+        tempHTML.push("<li class=\"list-group-item\">" + tempItem + "</li>");
       }
 
+      // write all of content inside a target tag
       timetables.innerHTML = tempHTML.join('\n');
+
     });
   });
 }
@@ -98,4 +120,30 @@ function getTimetablesFromInternet() {
 function clearTimetables() {
   var timetables = document.getElementById('timetables');
   timetables.innerHTML = "";
+}
+
+function searchTimetable() {
+  // get input element to get what user inputs
+  var inputBar = document.getElementById('search');
+
+  var searchContent = inputBar.value;
+
+  //console.log(searchContent);
+
+  // check if all of timetables are loaded completely
+  if(allTimetables.length != 0) {
+    var tempHTML = [];
+
+    // iterate all of timetables and find matched timetables
+    for(var i = 0; i < allTimetables.length; i++) {
+      // if match, show in the main surface
+      if(allTimetables[i].indexOf(searchContent) > -1) {
+        tempHTML.push("<li class=\"list-group-item\">" + allTimetables[i] + "</li>");
+      }
+    }
+
+    // write into target tag
+    timetables.innerHTML = tempHTML.join('\n');
+  }
+
 }
