@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../public/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/stylesheets/font-awesome.min.css">
     <link rel="stylesheet" href="../public/stylesheets/style.css">
     <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
     <script src="../public/javascripts/jquery-3.0.0.min.js"></script>
@@ -35,10 +36,16 @@
     </nav>
 
     <!-- list -->
-    <div class="container">
+    <div class="container" id="list">
       <ul class="list-group" id="timetables">
       </ul>
     </div>
 
+    <!-- footer -->
+    <footer class="footer">
+      <div class="container">
+        <button type="button" class="btn btn-primary btn-sm " id="load" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading" onclick="getTimetablesFromInternet()">Refresh</button>
+      </div>
+    </footer>
   </body>
 </html>

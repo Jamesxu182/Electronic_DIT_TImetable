@@ -1,5 +1,10 @@
 var http = require('http');
 var fs = require('fs');
+var util = require('util');
+var EventEmitter = require('events').EventEmitter;
+
+//global event emitter to generate event
+var ee = new EventEmitter();
 
 //global variable to store all of timetables information
 var allTimetables = [];
@@ -18,6 +23,14 @@ window.onload = function() {
   });
   //getTimetablesFromInternet();
   //getTimetablesFromLocalFile();
+
+  $('.btn').on('click', function() {
+    var $this = $(this);
+    $this.button('loading');
+    ee.on('complete_load', function() {
+      $this.button('reset');
+    });
+  });
 }
 
 function getTimetablesFromLocalFile() {
@@ -64,6 +77,7 @@ function getTimetablesFromLocalFile() {
 }
 
 function getTimetablesFromInternet() {
+
   var timetables = document.getElementById('timetables');
 
   var options = {
@@ -112,6 +126,8 @@ function getTimetablesFromInternet() {
       // write all of content inside a target tag
       timetables.innerHTML = tempHTML.join('\n');
 
+      //complete rewrite, send event
+      ee.emit('complete_load');
     });
   });
 }
@@ -145,5 +161,4 @@ function searchTimetable() {
     // write into target tag
     timetables.innerHTML = tempHTML.join('\n');
   }
-
 }

@@ -2,3 +2,13 @@ body {
   padding: 0px;
   padding-top: 120px;
 }
+
+div#list {
+  height: 420px;
+  overflow-y: scroll;
+}
+
+footer.footer {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
