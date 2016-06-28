@@ -33,9 +33,20 @@ function getTimetablesFromLocalFile() {
       clearTimetables();
 
       //show timetables
+      //===============
+      //slow approach to insert html
+      //for(var i = 0; i < json.objects.length; i++) {
+      //    timetables.innerHTML += "<li class=\"list-group-item\">" + json.objects[i].courseName + "</li>";
+      //}
+      //===============
+      // faster approach to insert html
+      var tempHTML = [];
+
       for(var i = 0; i < json.objects.length; i++) {
-          timetables.innerHTML += "<li class=\"list-group-item\">" + json.objects[i].courseName + "</li>";
+        tempHTML.push("<li class=\"list-group-item\">" + json.objects[i].courseName + "</li>");
       }
+
+      timetables.innerHTML = tempHTML.join('\n');
     }
   });
 }
@@ -58,7 +69,7 @@ function getTimetablesFromInternet() {
     res.on('end', function() {
 
       //write new json into cache file
-      fs.writeFile('cache/cache.json', responseJSON, function() {
+      fs.writeFile('cache/cache.json', responseJSON, function(err) {
         if(err) {
           console.log(err);
         }
@@ -67,10 +78,18 @@ function getTimetablesFromInternet() {
       json = JSON.parse(responseJSON);
 
       //display in main surface
+      //for(var i = 0; i < json.objects.length; i++) {
+      //    timetables.innerHTML += "<li class=\"list-group-item\">" + json.objects[i].courseName + "</li>";
+      //}
+
+      //fast approach to display all of timetables
+      var tempHTML = [];
+
       for(var i = 0; i < json.objects.length; i++) {
-          timetables.innerHTML += "<li class=\"list-group-item\">" + json.objects[i].courseName + "</li>";
+        tempHTML.push("<li class=\"list-group-item\">" + json.objects[i].courseName + "</li>");
       }
 
+      timetables.innerHTML = tempHTML.join('\n');
     });
   });
 }
