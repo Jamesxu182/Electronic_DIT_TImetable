@@ -4,8 +4,8 @@ body {
 }
 
 div#list {
-  height: 420px;
   overflow-y: scroll;
+  height: 405px;
 }
 
 footer.footer {

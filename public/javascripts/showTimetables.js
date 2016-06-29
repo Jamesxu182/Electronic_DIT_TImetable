@@ -21,6 +21,7 @@ window.onload = function() {
       getTimetablesFromInternet();
     }
   });
+
   //getTimetablesFromInternet();
   //getTimetablesFromLocalFile();
 
@@ -67,7 +68,7 @@ function getTimetablesFromLocalFile() {
         // push each of course name into global variable for storage
         allTimetables.push(tempItem);
         // push to tempate variable for displaying
-        tempHTML.push("<li class=\"list-group-item\">" + tempItem + "</li>");
+        tempHTML.push("<a class=\"list-group-item\">" + tempItem + "</a>");
       }
 
       // write all of content inside a target tag
@@ -120,7 +121,7 @@ function getTimetablesFromInternet() {
         // push each of course name into global variable for storage
         allTimetables.push(tempItem);
         // push to tempate variable for displaying
-        tempHTML.push("<li class=\"list-group-item\">" + tempItem + "</li>");
+        tempHTML.push("<a class=\"list-group-item\">" + tempItem + "</a>");
       }
 
       // write all of content inside a target tag
@@ -154,7 +155,7 @@ function searchTimetable() {
     for(var i = 0; i < allTimetables.length; i++) {
       // if match, show in the main surface
       if(allTimetables[i].indexOf(searchContent) > -1) {
-        tempHTML.push("<li class=\"list-group-item\">" + allTimetables[i] + "</li>");
+        tempHTML.push("<a class=\"list-group-item\">" + allTimetables[i] + "</a>");
       }
     }
 
